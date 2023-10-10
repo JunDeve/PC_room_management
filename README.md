@@ -1,7 +1,9 @@
 # PC_room_management
 
 이 프로젝트는 'Notion'에 기록되어 있습니다.
+
 This project is recorded in the 'Notion'.
+
 link: https://flame-show-204.notion.site/PC-dbc334aa7b8748bcb6d71a7e6a3359e0?pvs=4
 
 ## 실행 방법
