@@ -6,7 +6,14 @@ This project is recorded in the 'Notion'.
 
 link: https://flame-show-204.notion.site/PC-dbc334aa7b8748bcb6d71a7e6a3359e0?pvs=4
 
-## 실행 방법
+## Record
+
+| Version | Date       | Detail           | Writer        |
+| ------- | ---------- | ---------------- | ------------- |
+| v0.1    | 2023/10/10 | project start    | June          |
+
+
+### 실행 방법
 
 1. 제작중
 
@@ -14,7 +21,7 @@ link: https://flame-show-204.notion.site/PC-dbc334aa7b8748bcb6d71a7e6a3359e0?pvs
 
 3. 제작중
 
-### 연락처
+#### 연락처
 
 질문이나 피드백이 있으면 [이메일 주소]로 연락하세요.
 
