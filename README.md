@@ -1,6 +1,7 @@
 # PC_room_management
 
 이 프로젝트는 'Notion'에 기록되어 있습니다.
++ Trial and Error 추가
 
 This project is recorded in the 'Notion'.
 
