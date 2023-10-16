@@ -1,0 +1,22 @@
+INSERT INTO device (pc_serial, monitor_serial, mouse_serial, Kboard_serial)
+VALUES
+('PC1234567890', 'MonitorA1234', 'MouseX567890', 'KboardK98765'),
+('PC2345678901', 'MonitorB5678', 'MouseY123456', 'KboardL65432'),
+('PC3456789012', 'MonitorC9012', 'MouseZ234567', 'KboardM43210'),
+('PC4567890123', 'MonitorD2345', 'MouseA345678', 'KboardN32109'),
+('PC5678901234', 'MonitorE5678', 'MouseB456789', 'KboardO21098'),
+('PC6789012345', 'MonitorF9012', 'MouseC567890', 'KboardP10987'),
+('PC7890123456', 'MonitorG2345', 'MouseD678901', 'KboardQ09876'),
+('PC8901234567', 'MonitorH5678', 'MouseE789012', 'KboardR98765'),
+('PC9012345678', 'MonitorI9012', 'MouseF123456', 'KboardS87654'),
+('PC0123456789', 'MonitorJ2345', 'MouseG234567', 'KboardT76543'),
+('PC1234509876', 'MonitorK5678', 'MouseH345678', 'KboardU65432'),
+('PC2345610987', 'MonitorL9012', 'MouseI456789', 'KboardV54321'),
+('PC3456721098', 'MonitorM2345', 'MouseJ567890', 'KboardW43210'),
+('PC4567832109', 'MonitorN5678', 'MouseK678901', 'KboardX32109'),
+('PC5678943210', 'MonitorO9012', 'MouseL123456', 'KboardY21098'),
+('PC6789054321', 'MonitorP2345', 'MouseM234567', 'KboardZ10987'),
+('PC7890165432', 'MonitorQ5678', 'MouseN345678', 'KboardAA0987'),
+('PC8901276543', 'MonitorR9012', 'MouseO567890', 'KboardAB9876'),
+('PC9012387654', 'MonitorS2345', 'MouseP123456', 'KboardAC8765'),
+('PC0123498765', 'MonitorT5678', 'MouseQ234567', 'KboardAD7654');
