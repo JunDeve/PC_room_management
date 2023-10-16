@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const Window_width = Dimensions.get("window").width;
+const Window_height = Dimensions.get("window").height;
 
 const HeaderStyles = StyleSheet.create({
   container: {
@@ -14,6 +17,42 @@ const HeaderStyles = StyleSheet.create({
   button: {
     padding: 20,
     paddingHorizontal: 20,
+  },
+  modal: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  modalview: {
+    height: Window_height * 1,
+    width: Window_width * 0.8,
+    justifyContent: 'flex-start',
+    backgroundColor: '#2E2E2E',
+  },
+  modaluser: {
+    marginLeft: 10,
+    marginTop: 100,
+  },
+  modaluserimg: {
+    marginBottom: 20,
+  },
+  modaltext: {
+    color: '#FFFFFF',
+    fontSize: 23,
+  },
+  modaltexttime: {
+    color: '#A0A0A0',
+    fontSize: 15,
+    marginBottom: 20,
+  },
+  separator: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+  },
+  modalmenutext: {
+    color: '#A0A0A0',
+    fontSize: 15,
+    marginLeft: 20,
+    margin: 10,
   },
 });
 
