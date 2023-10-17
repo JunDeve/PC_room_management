@@ -24,7 +24,7 @@ const HeaderStyles = StyleSheet.create({
   },
   modalview: {
     height: Window_height * 1,
-    width: Window_width * 0.8,
+    width: Window_width * 0.5,
     justifyContent: 'flex-start',
     backgroundColor: '#2E2E2E',
   },

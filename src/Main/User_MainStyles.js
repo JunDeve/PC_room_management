@@ -5,20 +5,25 @@ const Window_height = Dimensions.get("window").height;
 
 
 const User_MainStyles = StyleSheet.create({
-  full:{
-    width: Window_width, 
+  full: {
+    width: Window_width,
     height: Window_height
   },
   container: {
     flexDirection: 'row',
     padding: 8,
+    height: '30%'
   },
-  userarea:{
+  userarea: {
     paddingHorizontal: 8,
   },
   usertext: {
     fontSize: 18,
     color: '#000000',
+  },
+  usertabletext: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   timetext: {
     fontSize: 16,
@@ -30,6 +35,7 @@ const User_MainStyles = StyleSheet.create({
     paddingVertical: 12,
     backgroundColor: '#A0A0A0',
     borderRadius: 30,
+    height: '25%'
   },
   buttonText: {
     color: '#FFFFFF',
@@ -45,19 +51,40 @@ const User_MainStyles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#ccc',
   },
-  tableCell: {
-    width: Window_width * 0.19,
-    height: Window_height * 0.045,
-    backgroundColor: '#e0e0e0',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   modalView: {
-    height: Window_height * 0.6,
+    height: Window_height * 0.75,
     width: Window_width * 0.8,
     alignSelf: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
+  },
+  selectBox: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  selectBoxContent: {
+    width: 250,
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  actionButton: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: 'gray',
+    borderRadius: 5,
+    width: 100,
+    alignItems: 'center',
+  },
+  actionButtonText: {
+    color: 'white',
+  },
+  closebtn2: {
+    textAlign: 'right',
+    marginTop: 15,
+    marginRight: -100,
   },
   centeredView: {
     flex: 1,
@@ -65,17 +92,19 @@ const User_MainStyles = StyleSheet.create({
   },
   modaltext: {
     backgroundColor: '#A0A0A0',
-    textAlign: 'center',
     width: Window_height * 0.115,
     height: Window_height * 0.115,
     margin: 2,
+    textAlign: 'center',
     fontWeight: 'bold',
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
   payment: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    position: 'relative',
+    top: 0,
   },
   modalinformation: {
     position: 'relative',
@@ -84,10 +113,9 @@ const User_MainStyles = StyleSheet.create({
   },
   modalinformationtext: {
     height: Window_height * 0.06,
-    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#FAFAFA',
     margin: 5,
-    padding: 15,
   },
   paymentbtn: {
     alignSelf: 'center',
@@ -95,11 +123,34 @@ const User_MainStyles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: '#A0A0A0',
     width: Window_width * 0.3,
-    height: Window_height * 0.05,
+    height: Window_height * 0.06,
   },
   paymentbtntext: {
     textAlign: 'center',
-    padding: 12
+    padding: 12,
+    color: '#FFFFFF',
+  },
+  closebtn: {
+    textAlign: 'right',
+    marginTop: 50,
+    marginRight: 20,
+  },
+  seatGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: -130,
+  },
+  tableCell: {
+    width: '17%',
+    aspectRatio: 1,
+    backgroundColor: 'lightgray',
+    borderWidth: 1,
+    borderColor: 'gray',
+  },
+  verticalMargin: {
+    marginVertical: 5,
   },
 });
 

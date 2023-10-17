@@ -28,7 +28,8 @@ function Login() {
                 if (data.redirect) {
                     console.log(data.message);
                     alert(data.message);
-                    navigation.navigate(data.redirect);
+                    const { user_id, user_time } = data.userInfo;
+                    navigation.navigate(data.redirect, { user_id, user_time });
                 } else {
                     console.log(data.message);
                     alert(data.message);
@@ -43,9 +44,7 @@ function Login() {
 
     return (
         <View>
-            <View>
-                <Header />
-            </View>
+            <View style={{ marginTop: 50 }}></View>
             <View style={LoginStyles.top}>
                 <Text style={LoginStyles.signtext}>Sign In</Text>
                 <View style={LoginStyles.image}>

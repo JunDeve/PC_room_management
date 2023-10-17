@@ -67,7 +67,7 @@ async function startServer() {
 startServer();
 
 app.post('/login', async (req, res) => {
-    console.log('POST 요청 /login 엔드포인트로 도착');
+    console.log('POST 요청 도착');
 
     const { user_id, user_pwd } = req.body;
 
@@ -90,7 +90,7 @@ app.post('/login', async (req, res) => {
             res.json({
                 redirect: 'Manager',
                 message: '관리자님 안녕하세요!',
-                userInfo: managerRows[0]
+                userInfo: managerRows[0],
             });
         } else if (userRows.length > 0) {
             res.json({
@@ -106,15 +106,6 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ message: '데이터베이스 오류' });
     }
 });
-
-app.get('/manager_Main', (req, res) => {
-    res.send('관리자 메인 페이지');
-});
-
-app.get('/user_Main', (req, res) => {
-    res.send('사용자 메인 페이지');
-});
-
 
 app.get('/api/charge', async (req, res) => {
     try {
