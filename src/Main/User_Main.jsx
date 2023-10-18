@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import Header from '../Header/Header';
 import User_MainStyles from './User_MainStyles';
 import Svg, { Path } from 'react-native-svg';
@@ -7,7 +7,14 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 function User_Main() {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [selectedBox, setSelectedBox] = useState(null);
+  const [selectedBox, setSelectedBox] = useState(false);
+  const [timeSelectionVisible, setTimeSelectionVisible] = useState(false);
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedSeats, setSelectedSeats] = useState(Array(20).fill(false));
+  const [isSeatInUse, setIsSeatInUse] = useState(false);
+  const [isReservationComplete, setIsReservationComplete] = useState(false);
+  const [reservedTime, setReservedTime] = useState(null);
+
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -17,7 +24,18 @@ function User_Main() {
   const timeString = `${hours}시간 ${minutes}분`;
 
   const selectBox = () => {
-    setSelectedBox(true);
+    if (!isSeatInUse) {
+      setSelectedBox(!selectedBox);
+    }
+  };
+
+  const toggleTimeSelection = () => {
+    setTimeSelectionVisible(!timeSelectionVisible);
+  };
+
+  const handleTimeSelection = (time) => {
+    setSelectedTime(time);
+    setIsReservationComplete(false);
   };
 
   const toggleModal = () => {
@@ -25,7 +43,35 @@ function User_Main() {
   };
 
   const closeSelectBoxModal = () => {
+    setSelectedSeats(Array(20).fill(false));
+    setIsSeatInUse(false);
     setSelectedBox(false);
+  };
+
+  const handleUseButtonClick = () => {
+    setSelectedBox(false);
+    setTimeSelectionVisible(false);
+    setSelectedTime(null);
+    setIsSeatInUse(!isSeatInUse);
+  };
+
+  const handleReservation = () => {
+    if (selectedTime !== null) {
+      setReservedTime(selectedTime);
+      setIsReservationComplete(true);
+      toggleTimeSelection();
+      alert('예약이 완료되었습니다.');
+    }
+  };
+  const handleSeatSelection = (index) => {
+    if (isSeatInUse) {
+      alert('이미 계정을 사용 중입니다.');
+    } else {
+      const updatedSelectedSeats = [...selectedSeats];
+      updatedSelectedSeats[index] = !updatedSelectedSeats[index];
+      setSelectedSeats(updatedSelectedSeats);
+      selectBox();
+    }
   };
 
   const headerProps = {
@@ -40,7 +86,7 @@ function User_Main() {
       <View>
         <Header {...headerProps} />
       </View>
-      <View style={User_MainStyles.container}>{/*top*/}
+      <View style={User_MainStyles.container}>
         <Svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(192, 192, 192)" class="bi bi-person-circle" viewBox="0 0 16 16">
           <Path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
           <Path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
@@ -60,11 +106,19 @@ function User_Main() {
               key={index}
               style={[
                 User_MainStyles.tableCell,
+                selectedSeats[index] ? User_MainStyles.selectedSeat : null,
                 (index % 4 === 1 || index % 4 === 3) && (Math.floor(index / 4) === 0) ? User_MainStyles.marginCell : null,
                 (Math.floor(index / 4) !== 1) ? User_MainStyles.verticalMargin : null,
               ]}
-              onPress={(selectBox)}
-            />
+              onPress={() => {
+                handleSeatSelection(index);
+                selectBox();
+              }}
+            >
+              <Text style={User_MainStyles.seatText}>
+                {selectedSeats[index] ? (isSeatInUse ? '사용중' : '') : ''}
+              </Text>
+            </TouchableOpacity>
           ))}
         </View>
       </View>
@@ -80,13 +134,40 @@ function User_Main() {
         <View style={User_MainStyles.selectBox}>
           <View style={User_MainStyles.selectBoxContent}>
             <Text style={User_MainStyles.usertabletext}>좌석을 선택하셨습니다</Text>
-            <TouchableOpacity style={User_MainStyles.actionButton} onPress={() => { /* 사용 버튼 눌렀을 때의 동작 구현 */ }}>
+            <TouchableOpacity
+              onPress={toggleTimeSelection}
+            >
+              <Text style={User_MainStyles.selectTimeToggleText}>
+                예약 시간 : {selectedTime !== null ? `${selectedTime}:00` : '(클릭하세요)'}
+                {"\n"}[미선택시 현재 시간]
+              </Text>
+            </TouchableOpacity>
+            {timeSelectionVisible && (
+              <ScrollView style={User_MainStyles.timeSelectionScrollView}>
+                {Array.from({ length: 13 }, (_, i) => i * 2).map((hour) => (
+                  <TouchableOpacity
+                    key={hour}
+                    style={[
+                      User_MainStyles.timeOption,
+                      selectedTime === hour ? User_MainStyles.selectedTimeOption : null
+                    ]}
+                    onPress={() => handleTimeSelection(hour)}
+                  >
+                    <Text>{hour < 10 ? `0${hour}` : hour}:00</Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            )}
+            <TouchableOpacity style={User_MainStyles.actionButton} onPress={handleUseButtonClick}>
               <Text style={User_MainStyles.actionButtonText}>사용</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={User_MainStyles.actionButton} onPress={() => { /* 예약 버튼 눌렀을 때의 동작 구현 */ }}>
+            <TouchableOpacity style={User_MainStyles.actionButton} onPress={handleReservation}>
               <Text style={User_MainStyles.actionButtonText}>예약</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={closeSelectBoxModal}>
+            <TouchableOpacity onPress={() => {
+              closeSelectBoxModal();
+              toggleTimeSelection();
+            }}>
               <Text style={User_MainStyles.closebtn2}>닫기</Text>
             </TouchableOpacity>
           </View>
@@ -109,9 +190,9 @@ function User_Main() {
               <Text style={User_MainStyles.modaltext}>{"\n"}{"\n"}직접 입력</Text>
             </View>
             <View style={User_MainStyles.modalinformation}>
-              <Text style={User_MainStyles.modalinformationtext}>  아이디 : name1</Text>
-              <Text style={User_MainStyles.modalinformationtext}>  이용여부 : 미사용중</Text>
-              <Text style={User_MainStyles.modalinformationtext}>  잔여시간 : 6시간 50분</Text>
+              <Text style={User_MainStyles.modalinformationtext}>  아이디 : {route.params.user_id}</Text>
+              <Text style={User_MainStyles.modalinformationtext}>  이용여부 : {isSeatInUse ? '사용중' : '미사용중'}</Text>
+              <Text style={User_MainStyles.modalinformationtext}>  {`남은시간: ${timeString}`}</Text>
             </View>
             <TouchableOpacity style={User_MainStyles.paymentbtn}>
               <Text style={User_MainStyles.paymentbtntext}>+ 결제하기</Text>

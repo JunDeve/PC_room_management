@@ -31,11 +31,11 @@ const User_MainStyles = StyleSheet.create({
   },
   button: {
     marginLeft: 60,
-    paddingHorizontal: 30,
-    paddingVertical: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 11,
     backgroundColor: '#A0A0A0',
     borderRadius: 30,
-    height: '25%'
+    height: '23%',
   },
   buttonText: {
     color: '#FFFFFF',
@@ -57,6 +57,9 @@ const User_MainStyles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
+  },
+  selectTimeToggleText: {
+    textAlign: 'center',
   },
   selectBox: {
     flex: 1,
@@ -141,6 +144,11 @@ const User_MainStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: -130,
+  },
+  seatText: {
+    textAlign: 'center',
+    marginTop: 25,
+    color: '#FFFFFF',
   },
   tableCell: {
     width: '17%',
