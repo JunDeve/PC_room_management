@@ -87,75 +87,6 @@ function User_Main() {
 
   const seats = Array(20).fill(null);
 
-  const handlePaymentApprove = async () => {
-    try {
-      const response = await fetch('URL_서버에서_제공하는_API_ENDPOINT'); // 서버에서 제공하는 API 엔드포인트를 호출하여 스킴 값을 가져옴
-      const data = await response.json();
-
-      if (data.android_app_scheme && data.ios_app_scheme) {
-        Linking.openURL(data.android_app_scheme);
-        Linking.openURL(data.ios_app_scheme);
-      } else {
-        console.log('스킴 값이 없거나 유효하지 않습니다.');
-      }
-    } catch (error) {
-      console.error('스킴을 열 수 없습니다:', error);
-    }
-
-    try {
-      const response = await paymentApprove();
-      await handlePaymentResponse();
-      if (response) {
-        console.log('POST 요청이 성공적으로 보내졌습니다.');
-      } else {
-        console.log('POST 요청이 실패했습니다.');
-      }
-    } catch (error) {
-      console.error('POST 요청 중 오류:', error);
-    }
-  };
-
-  const serviceAppAdminKey = '0d9836d886b0b69c64be35c4df4d7a65';
-
-  const paymentApprove = async (tid, pgToken) => {
-    const url = 'https://kapi.kakao.com/v1/payment/approve';
-    const headers = {
-      Authorization: `KakaoAK ${serviceAppAdminKey}`,
-      'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-    };
-    const data = {
-      cid: 'TC0ONETIME',
-      tid: 'T1234567890123456789',
-      android_app_scheme: "kakaotalk://kakaopay/pg?url=https://mockup-pg-web.kakao.com/v1/xxxxxxxxxx/order",
-      ios_app_scheme: "kakaotalk://kakaopay/pg?url=https://mockup-pg-web.kakao.com/v1/xxxxxxxxxx/order",
-      // android_app_scheme, ios_app_scheme : 카카오페이 결제 화면으로 이동하는 Android, ios 앱 스킴(Scheme)
-    };
-
-    try {
-      const response = await axios.post(url, data, { headers });
-      return response.data;
-    } catch (error) {
-      console.error('Payment 연결오류:', error);
-      return null;
-    }
-  };
-
-  const handlePaymentResponse = async () => {
-    try {
-      const response = await fetch('URL_서버에서_제공하는_API_ENDPOINT');
-      const data = await response.json();
-
-      if (data.android_app_scheme && data.ios_app_scheme) {
-        Linking.openURL(data.android_app_scheme);
-        Linking.openURL(data.ios_app_scheme);
-      } else {
-        console.log('스킴 값이 없거나 유효하지 않습니다.');
-      }
-    } catch (error) {
-      console.error('결제 응답을 처리하는 중 오류 발생:', error);
-    }
-  };
-
   return (
     <View style={User_MainStyles.full}>
       <View>
@@ -182,7 +113,7 @@ function User_Main() {
               style={[
                 User_MainStyles.tableCell,
                 selectedSeats[index] ? User_MainStyles.selectedSeat : null,
-                (index % 4 === 1 || index % 4 === 3) && (Math.floor(index / 4) === 0) ? User_MainStyles.marginCell : null,
+                (index % 4 === 1 || index % 4 === 3) && (Math.floor(index / 4) === 0) ? User_MainStyles.verticalMargin : null,
                 (Math.floor(index / 4) !== 1) ? User_MainStyles.verticalMargin : null,
               ]}
               onPress={() => {
@@ -242,7 +173,7 @@ function User_Main() {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
               closeSelectBoxModal();
-              toggleTimeSelection();
+              setSelectedTime(null);
             }}>
               <Text style={User_MainStyles.closebtn2}>닫기</Text>
             </TouchableOpacity>
@@ -284,7 +215,7 @@ function User_Main() {
               {selectedAdditionalTime && <Text style={User_MainStyles.modalinformationtext}>  선택한 시간: {selectedAdditionalTime}</Text>}
 
             </View>
-            <TouchableOpacity style={User_MainStyles.paymentbtn} onPress={handlePaymentApprove}>
+            <TouchableOpacity style={User_MainStyles.paymentbtn}>
               <Text style={User_MainStyles.paymentbtntext}>+ 결제하기</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {

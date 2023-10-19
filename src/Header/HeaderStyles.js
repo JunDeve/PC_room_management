@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
+
 const Window_width = Dimensions.get("window").width;
 const Window_height = Dimensions.get("window").height;
 
@@ -53,6 +54,14 @@ const HeaderStyles = StyleSheet.create({
     fontSize: 15,
     marginLeft: 20,
     margin: 10,
+  },
+  DombHeader: {
+    color: '#FFFFFF',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 15,
+    marginBottom: 15,
+    marginLeft: 20,
   },
 });
 
