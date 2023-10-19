@@ -1,8 +1,7 @@
 # PC_room_management
 
 이 프로젝트는 'Notion'에 기록되어 있습니다.
-
-This project is recorded in the 'Notion'.
+(This project is recorded in the 'Notion'.)
 
 link: https://flame-show-204.notion.site/PC-dbc334aa7b8748bcb6d71a7e6a3359e0?pvs=4
 
@@ -13,13 +12,16 @@ link: https://flame-show-204.notion.site/PC-dbc334aa7b8748bcb6d71a7e6a3359e0?pvs
 | v0.1    | 2023/10/10 | project start    | June          |
 
 
-### 실행 방법
+### Run
 
 1. npm i
 
-2. 제작중
+2. npm start
 
-3. 제작중
+3. + cd server
+     node server.js
+
+4. play enjoy!
 
 #### 연락처
 
@@ -28,4 +30,4 @@ link: https://flame-show-204.notion.site/PC-dbc334aa7b8748bcb6d71a7e6a3359e0?pvs
  - 이름: 김준
  - 학교: 경일대학교
  - 학번: 20191394
- - 이메일: qnto02143@naver.com
+ - 이메일: qnfto02143@naver.com, qnfto021430@gmail.com
