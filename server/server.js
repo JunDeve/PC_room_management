@@ -107,7 +107,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/api/charge', async (req, res) => {
+app.get('/payment/success', async (req, res) => {
     try {
         const response = {
             success: true,
@@ -120,3 +120,28 @@ app.get('/api/charge', async (req, res) => {
     }
 });
 
+app.get('/payment/cancel', (req, res) => {
+    try {
+        const response = {
+            success: true,
+            message: '충전을 취소하셨습니다.',
+        };
+        res.json(response);
+    } catch (error) {
+        console.error('충전 처리 중 오류 발생:', error);
+        res.status(500).json({ success: false, message: '충전 처리 중 오류 발생' });
+    }
+});
+
+app.get('/payment/fail', (req, res) => {
+    try {
+        const response = {
+            success: true,
+            message: '충전이 성공적으로 처리되었습니다.',
+        };
+        res.json(response);
+    } catch (error) {
+        console.error('충전 처리 중 오류 발생:', error);
+        res.status(500).json({ success: false, message: '충전 처리 중 오류 발생' });
+    }
+});

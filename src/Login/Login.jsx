@@ -28,8 +28,8 @@ function Login() {
                 if (data.redirect) {
                     console.log(data.message);
                     alert(data.message);
-                    const { user_id, user_time } = data.userInfo;
-                    navigation.navigate(data.redirect, { user_id, user_time });
+                    const { user_id, user_time, user_pwd, user_number, user_address } = data.userInfo;
+                    navigation.navigate(data.redirect, { user_id, user_time, user_pwd, user_number, user_address });
                 } else {
                     console.log(data.message);
                     alert(data.message);

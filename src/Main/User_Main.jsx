@@ -4,6 +4,8 @@ import Header from '../Header/Header';
 import User_MainStyles from './User_MainStyles';
 import Svg, { Path } from 'react-native-svg';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import axios from 'axios';
+import { Linking } from 'react-native';
 
 function User_Main() {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -14,6 +16,8 @@ function User_Main() {
   const [isSeatInUse, setIsSeatInUse] = useState(false);
   const [isReservationComplete, setIsReservationComplete] = useState(false);
   const [reservedTime, setReservedTime] = useState(null);
+  const [selectedAdditionalTime, setSelectedAdditionalTime] = useState(null);
+
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -76,15 +80,86 @@ function User_Main() {
 
   const headerProps = {
     user_id: route.params.user_id,
+    user_pwd: route.params.user_pwd,
+    user_number: route.params.user_number,
     user_time: timeString,
   };
 
   const seats = Array(20).fill(null);
 
+  const handlePaymentApprove = async () => {
+    try {
+      const response = await fetch('URL_서버에서_제공하는_API_ENDPOINT'); // 서버에서 제공하는 API 엔드포인트를 호출하여 스킴 값을 가져옴
+      const data = await response.json();
+
+      if (data.android_app_scheme && data.ios_app_scheme) {
+        Linking.openURL(data.android_app_scheme);
+        Linking.openURL(data.ios_app_scheme);
+      } else {
+        console.log('스킴 값이 없거나 유효하지 않습니다.');
+      }
+    } catch (error) {
+      console.error('스킴을 열 수 없습니다:', error);
+    }
+
+    try {
+      const response = await paymentApprove();
+      await handlePaymentResponse();
+      if (response) {
+        console.log('POST 요청이 성공적으로 보내졌습니다.');
+      } else {
+        console.log('POST 요청이 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('POST 요청 중 오류:', error);
+    }
+  };
+
+  const serviceAppAdminKey = '0d9836d886b0b69c64be35c4df4d7a65';
+
+  const paymentApprove = async (tid, pgToken) => {
+    const url = 'https://kapi.kakao.com/v1/payment/approve';
+    const headers = {
+      Authorization: `KakaoAK ${serviceAppAdminKey}`,
+      'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    };
+    const data = {
+      cid: 'TC0ONETIME',
+      tid: 'T1234567890123456789',
+      android_app_scheme: "kakaotalk://kakaopay/pg?url=https://mockup-pg-web.kakao.com/v1/xxxxxxxxxx/order",
+      ios_app_scheme: "kakaotalk://kakaopay/pg?url=https://mockup-pg-web.kakao.com/v1/xxxxxxxxxx/order",
+      // android_app_scheme, ios_app_scheme : 카카오페이 결제 화면으로 이동하는 Android, ios 앱 스킴(Scheme)
+    };
+
+    try {
+      const response = await axios.post(url, data, { headers });
+      return response.data;
+    } catch (error) {
+      console.error('Payment 연결오류:', error);
+      return null;
+    }
+  };
+
+  const handlePaymentResponse = async () => {
+    try {
+      const response = await fetch('URL_서버에서_제공하는_API_ENDPOINT');
+      const data = await response.json();
+
+      if (data.android_app_scheme && data.ios_app_scheme) {
+        Linking.openURL(data.android_app_scheme);
+        Linking.openURL(data.ios_app_scheme);
+      } else {
+        console.log('스킴 값이 없거나 유효하지 않습니다.');
+      }
+    } catch (error) {
+      console.error('결제 응답을 처리하는 중 오류 발생:', error);
+    }
+  };
+
   return (
     <View style={User_MainStyles.full}>
       <View>
-        <Header {...headerProps} />
+        <Header {...headerProps} timeString={timeString} />
       </View>
       <View style={User_MainStyles.container}>
         <Svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(192, 192, 192)" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -138,9 +213,10 @@ function User_Main() {
               onPress={toggleTimeSelection}
             >
               <Text style={User_MainStyles.selectTimeToggleText}>
-                예약 시간 : {selectedTime !== null ? `${selectedTime}:00` : '(클릭하세요)'}
+                예약 시간 : {selectedTime !== null ? `${selectedTime}:00` : <Text style={{ color: 'red' }}>(클릭하세요)</Text>}
                 {"\n"}[미선택시 현재 시간]
               </Text>
+
             </TouchableOpacity>
             {timeSelectionVisible && (
               <ScrollView style={User_MainStyles.timeSelectionScrollView}>
@@ -182,22 +258,39 @@ function User_Main() {
         <View style={User_MainStyles.centeredView}>
           <View style={User_MainStyles.modalView}>
             <View style={User_MainStyles.payment}>
-              <Text style={User_MainStyles.modaltext}>{"\n"}{"\n"}1,000원{"\n"}(1시간)</Text>
-              <Text style={User_MainStyles.modaltext}>{"\n"}{"\n"}2,000원{"\n"}(2시간10분)</Text>
-              <Text style={User_MainStyles.modaltext}>{"\n"}{"\n"}3,000원{"\n"}(3시간20분)</Text>
-              <Text style={User_MainStyles.modaltext}>{"\n"}{"\n"}5,000원{"\n"}(6시간)</Text>
-              <Text style={User_MainStyles.modaltext}>{"\n"}{"\n"}10,000원{"\n"}(12시간)</Text>
-              <Text style={User_MainStyles.modaltext}>{"\n"}{"\n"}직접 입력</Text>
+              <TouchableOpacity onPress={() => setSelectedAdditionalTime('1시간')}>
+                <Text style={User_MainStyles.modaltext}>1,000원{"\n"}(1시간)</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setSelectedAdditionalTime('2시간10분')}>
+                <Text style={User_MainStyles.modaltext}>2,000원{"\n"}(2시간10분)</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setSelectedAdditionalTime('3시간20분')}>
+                <Text style={User_MainStyles.modaltext}>3,000원{"\n"}(3시간20분)</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setSelectedAdditionalTime('6시간')}>
+                <Text style={User_MainStyles.modaltext}>5,000원{"\n"}(6시간)</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setSelectedAdditionalTime('12시간')}>
+                <Text style={User_MainStyles.modaltext}>10,000원{"\n"}(12시간)</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setSelectedAdditionalTime('70시간')}>
+                <Text style={User_MainStyles.modaltext}>50,000원{"\n"}(70시간)</Text>
+              </TouchableOpacity>
             </View>
             <View style={User_MainStyles.modalinformation}>
               <Text style={User_MainStyles.modalinformationtext}>  아이디 : {route.params.user_id}</Text>
               <Text style={User_MainStyles.modalinformationtext}>  이용여부 : {isSeatInUse ? '사용중' : '미사용중'}</Text>
               <Text style={User_MainStyles.modalinformationtext}>  {`남은시간: ${timeString}`}</Text>
+              {selectedAdditionalTime && <Text style={User_MainStyles.modalinformationtext}>  선택한 시간: {selectedAdditionalTime}</Text>}
+
             </View>
-            <TouchableOpacity style={User_MainStyles.paymentbtn}>
+            <TouchableOpacity style={User_MainStyles.paymentbtn} onPress={handlePaymentApprove}>
               <Text style={User_MainStyles.paymentbtntext}>+ 결제하기</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={toggleModal}>
+            <TouchableOpacity onPress={() => {
+              setSelectedAdditionalTime(null);
+              toggleModal();
+            }}>
               <Text style={User_MainStyles.closebtn}>닫기</Text>
             </TouchableOpacity>
           </View>

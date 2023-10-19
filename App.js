@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import UserMainScreen from './src/Main/User_Main';
 import LoginScreen from './src/Login/Login';
 // import ManagerMainScreen from './src/Manager/Manager_Main';
+import InfoUserScreen from './src/Header/Info/Info_User';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="User" component={UserMainScreen} />
         {/* <Stack.Screen name="Manager" component={ManagerMainScreen} /> */}
+        <Stack.Screen name="Info_User" component={InfoUserScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

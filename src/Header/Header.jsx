@@ -2,14 +2,27 @@ import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Modal } from 'react-native';
 import HeaderStyles from './HeaderStyles';
 import Svg, { Path, Circle } from 'react-native-svg';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 function Header(props) {
   const [isModalVisible, setModalVisible] = useState(false);
-  const { user_id, user_time } = props;
+  const { user_id, user_pwd, user_number, user_address, user_time, timeString  } = props;
+
+  const navigation = useNavigation();
+  const route = useRoute();
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  const navigateToInfoUser = () => {
+    navigation.navigate('Info_User', {
+      user_id: route.params.user_id,
+      user_pwd: route.params.user_pwd,
+      user_number: route.params.user_number,
+      user_time: timeString,
+    });
+  };  
 
   return (
     <View style={HeaderStyles.container}>
@@ -37,7 +50,7 @@ function Header(props) {
               <Text style={HeaderStyles.modaltexttime}>{`남은시간: ${user_time}`}</Text>
             </View>
             <View style={HeaderStyles.separator} />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={navigateToInfoUser}>
               <Text style={HeaderStyles.modalmenutext}>내정보</Text>
             </TouchableOpacity>
             <TouchableOpacity>

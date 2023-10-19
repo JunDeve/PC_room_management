@@ -7,12 +7,14 @@ const Window_height = Dimensions.get("window").height;
 const User_MainStyles = StyleSheet.create({
   full: {
     width: Window_width,
-    height: Window_height
+    height: Window_height,
   },
   container: {
     flexDirection: 'row',
     padding: 8,
-    height: '30%'
+    height: '30%',
+    marginLeft: 30,
+    paddingTop: 20,
   },
   userarea: {
     paddingHorizontal: 8,
@@ -101,6 +103,7 @@ const User_MainStyles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#FFFFFF',
+    paddingTop: Window_height * 0.033,
   },
   payment: {
     flexDirection: 'row',
@@ -113,6 +116,7 @@ const User_MainStyles = StyleSheet.create({
     position: 'relative',
     height: Window_height * 0.3,
     justifyContent: 'center',
+    top: 10,
   },
   modalinformationtext: {
     height: Window_height * 0.06,
@@ -127,6 +131,8 @@ const User_MainStyles = StyleSheet.create({
     backgroundColor: '#A0A0A0',
     width: Window_width * 0.3,
     height: Window_height * 0.06,
+    position: 'relative',
+    top: 30,
   },
   paymentbtntext: {
     textAlign: 'center',

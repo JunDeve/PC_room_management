@@ -4,7 +4,6 @@ const axios = require('axios');
 
 const serviceAppAdminKey = '0d9836d886b0b69c64be35c4df4d7a65';
 
-// 결제 준비하기 API
 const paymentReady = async () => {
   const url = 'https://kapi.kakao.com/v1/payment/ready';
   const headers = {
@@ -12,72 +11,48 @@ const paymentReady = async () => {
     'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
   };
   const data = {
-    cid: 'TEST_CID',
+    cid: 'TC0ONETIME',
     partner_order_id: 'TEST_ORDER_001',
     partner_user_id: 'TEST_USER_001',
     item_name: 'TEST_PRODUCT',
     quantity: 1,
-    total_amount: 2200,
+    total_amount: 3000,
     vat_amount: 200,
     tax_free_amount: 0,
-    approval_url: 'https://your-site.com/payment/success',
-    cancel_url: 'https://your-site.com/payment/cancel',
-    fail_url: 'https://your-site.com/payment/fail',
+    approval_url: 'http://10.0.2.2:3000/payment/success',
+    cancel_url: 'http://10.0.2.2:3000/payment/cancel',
+    fail_url: 'http://10.0.2.2:3000/payment/fail',
   };
 
   try {
     const response = await axios.post(url, data, { headers });
-    const { tid, next_redirect_app_url, next_redirect_mobile_url, next_redirect_pc_url } = response.data;
-    return { tid, next_redirect_app_url, next_redirect_mobile_url, next_redirect_pc_url };
+    const { tid, android_app_scheme, ios_app_scheme } = response.data;
+    return { tid, android_app_scheme, ios_app_scheme };
   } catch (error) {
     console.error('Payment ready error:', error);
     return null;
   }
 };
 
-// 결제 승인 요청하기 API
-const paymentApprove = async (tid, pgToken) => {
-  const url = 'https://kapi.kakao.com/v1/payment/approve';
-  const headers = {
-    Authorization: `KakaoAK ${serviceAppAdminKey}`,
-    'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-  };
-  const data = {
-    cid: 'TC0ONETIME',
-    tid: 'T1234567890123456789',
-    partner_order_id: 'TEST_ORDER_001',
-    partner_user_id: 'TEST_USER_001',
-    pg_token: 'TOK_A1B2C3D4E5F6',
-  };
-
-  try {
-    const response = await axios.post(url, data, { headers });
-    return response.data;
-  } catch (error) {
-    console.error('Payment 연결오류:', error);
-    return null;
-  }
-};
-
 router.post('/payment', async (req, res) => {
-  const { next_redirect_pc_url, next_redirect_mobile_url, next_redirect_app_url } = await paymentReady();
+  const { android_app_scheme, ios_app_scheme } = await paymentReady();
 
-  if (next_redirect_pc_url) {
-    res.redirect(next_redirect_pc_url);
-  } else if (next_redirect_mobile_url) {
-    res.redirect(next_redirect_mobile_url);
-  } else if (next_redirect_app_url) {
-    res.redirect(next_redirect_app_url);
+  if (android_app_scheme && ios_app_scheme) {
+    // 여기에서 프론트엔드로 이 스킴 값을 전달하거나 프론트엔드에서 이를 사용하여 카카오페이 결제 페이지를 열도록 지시합니다.
+    // 이 부분은 프론트엔드에서 다루어야 합니다.
+    res.status(200).json({ android_app_scheme, ios_app_scheme });
   } else {
-    res.status(500).send('Payment initiation failed');
+    res.status(500).send('Payment 게시실패');
   }
 });
+
+
 
 router.get('/payment', (req, res) => {
   res.send('GET 요청이 정상적으로 처리되었습니다.');
 });
 
-
+// CCTV
 router.get('/traffic-cameras', async (req, res) => {
   try {
     const apiUrl = 'http://api.data.go.kr/openapi/tn_pubr_public_unmanned_traffic_camera_api';
