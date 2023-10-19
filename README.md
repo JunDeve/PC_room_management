@@ -18,10 +18,11 @@ link: https://flame-show-204.notion.site/PC-dbc334aa7b8748bcb6d71a7e6a3359e0?pvs
 
 2. npm start
 
-3. + cd server
-     node server.js
+3. (Ctrl+Shift+`) cd server
+   
+4. node server.js
 
-4. play enjoy!
+5. play enjoy!
 
 #### 연락처
 
