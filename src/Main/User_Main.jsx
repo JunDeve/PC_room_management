@@ -4,8 +4,6 @@ import Header from '../Header/Header';
 import User_MainStyles from './User_MainStyles';
 import Svg, { Path } from 'react-native-svg';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import axios from 'axios';
-import { Linking } from 'react-native';
 
 function User_Main() {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -18,7 +16,6 @@ function User_Main() {
   const [reservedTime, setReservedTime] = useState(null);
   const [selectedAdditionalTime, setSelectedAdditionalTime] = useState(null);
 
-
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -26,6 +23,48 @@ function User_Main() {
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
   const timeString = `${hours}시간 ${minutes}분`;
+
+  // const handlePayment = async () => {
+  //   const serverUrl = 'http://10.0.2.2:3000/processPayment';
+
+  //   try {
+  //     const response = await fetch(serverUrl, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         "apiKey": "test_ck_XZYkKL4Mrj9Y4j0ONa0EV0zJwlEW",
+  //         "amount": 10000,
+  //         "amountTaxFree": 0,
+  //         "productDesc": "테스트 결제",
+  //         "autoExecute": true,
+  //         "resultCallback": "http://호스팅중이아니라못받아/callback",
+  //         "callbackVersion": "V2",
+  //         "retUrl": "http://호스팅중이아니라못받아//ORDER-CHECK?orderno=1",
+  //         "retCancelUrl": "http://호스팅중이아니라못받아//close",
+  //       }),
+  //     });
+
+  //     if (response.ok) {
+  //       const responseBody = await response.json();
+  //       console.log(responseBody);
+  //     } else {
+  //       console.error('Payment request failed');
+  //     }
+  //   } catch (error) {
+  //     console.error('An error occurred while making the payment request:', error);
+  //   }
+  // };
+
+  const handlePayment = () => {
+    if (selectedAdditionalTime) {
+      alert('결제 로직을 불러오지 못하였습니다.');
+    } else {
+      alert('시간을 선택하여 주세요.');
+    }
+  };
+  
 
   const selectBox = () => {
     if (!isSeatInUse) {
@@ -213,15 +252,11 @@ function User_Main() {
               <Text style={User_MainStyles.modalinformationtext}>  이용여부 : {isSeatInUse ? '사용중' : '미사용중'}</Text>
               <Text style={User_MainStyles.modalinformationtext}>  {`남은시간: ${timeString}`}</Text>
               {selectedAdditionalTime && <Text style={User_MainStyles.modalinformationtext}>  선택한 시간: {selectedAdditionalTime}</Text>}
-
             </View>
-            <TouchableOpacity style={User_MainStyles.paymentbtn}>
+            <TouchableOpacity style={User_MainStyles.paymentbtn} onPress={handlePayment}>
               <Text style={User_MainStyles.paymentbtntext}>+ 결제하기</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              setSelectedAdditionalTime(null);
-              toggleModal();
-            }}>
+            <TouchableOpacity onPress={() => {setSelectedAdditionalTime(null); toggleModal();}}>
               <Text style={User_MainStyles.closebtn}>닫기</Text>
             </TouchableOpacity>
           </View>

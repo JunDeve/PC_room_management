@@ -6,7 +6,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 function Header(props) {
   const [isModalVisible, setModalVisible] = useState(false);
-  const { user_id, user_pwd, user_number, user_address, user_time, timeString  } = props;
+  const { user_id, user_time, timeString  } = props;
 
   const navigation = useNavigation();
   const route = useRoute();
