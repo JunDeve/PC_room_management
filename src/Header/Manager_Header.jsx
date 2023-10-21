@@ -19,7 +19,7 @@ function Manager_Header() {
       </TouchableOpacity>
       <Text style={Manager_HeaderStyles.text}>PC management</Text>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={isModalVisible}
         onRequestClose={toggleModal}

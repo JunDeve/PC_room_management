@@ -4,11 +4,11 @@ const app = express();
 const port = 3000;
 const mysql = require('mysql2/promise');
 const fs = require('fs').promises;
-const routes = require('./routes');
+// const routes = require('./routes');
 
 app.use(cors());
 app.use(express.json());
-app.use('/api', routes);
+// app.use('/api', routes);
 
 app.get('/', (req, res) => {
     res.send('접속완');

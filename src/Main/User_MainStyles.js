@@ -123,6 +123,7 @@ const User_MainStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FAFAFA',
     margin: 5,
+    paddingTop: Window_height * 0.02,
   },
   paymentbtn: {
     alignSelf: 'center',
@@ -132,7 +133,7 @@ const User_MainStyles = StyleSheet.create({
     width: Window_width * 0.3,
     height: Window_height * 0.06,
     position: 'relative',
-    top: 30,
+    top: 10,
   },
   paymentbtntext: {
     textAlign: 'center',
@@ -140,9 +141,10 @@ const User_MainStyles = StyleSheet.create({
     color: '#FFFFFF',
   },
   closebtn: {
+    position: 'relative',
     textAlign: 'right',
-    marginTop: 50,
     marginRight: 20,
+    top: Window_height * 0.04,
   },
   seatGrid: {
     flexDirection: 'row',

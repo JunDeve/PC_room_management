@@ -3,7 +3,7 @@ import { Text, View, Modal, Animated } from 'react-native';
 import HeaderStyles from './HeaderStyles';
 
 function DumbHeader(props) {
-  const [animation] = useState(new Animated.Value(-300)); // 시작 위치를 화면 왼쪽 밖으로 설정
+  const [animation] = useState(new Animated.Value(-300));
 
   useEffect(() => {
     const startValue = -300;
