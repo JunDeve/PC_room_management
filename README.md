@@ -34,6 +34,6 @@ If you have any questions or feedback, please contact us at [email].
 - School: Kyungil University
 - Student number: 20191394
 - email:
--- Fast reply: qnfto02143@naver.com
--- business: lupus3608jk@gmail.com, lupus22jk@naver.com
+( Fast reply: qnfto02143@naver.com
+, business: lupus3608jk@gmail.com, lupus22jk@naver.com )
 
