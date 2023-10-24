@@ -5,6 +5,8 @@ Language: Korean
 
 link: https://flame-show-204.notion.site/PC-dbc334aa7b8748bcb6d71a7e6a3359e0?pvs=4
 
+- 2023.10.24 First presentation at Kyungil University
+
 ## Record
 
 | Version | Date       | Detail           | Writer        |
