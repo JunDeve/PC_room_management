@@ -11,7 +11,10 @@ link: https://flame-show-204.notion.site/PC-dbc334aa7b8748bcb6d71a7e6a3359e0?pvs
 
 | Version | Date       | Detail           | Writer        |
 | ------- | ---------- | ---------------- | ------------- |
-| v1.0    | 2023/10/10 | project start    | Jun          |
+| v1.0    | 2023/10/10 | project start    | Jun           |
+| v2.0    | 2023/10/20 | frontend finish  | Deahun        |
+| v3.0    | 2023/10/22 | backend finish   | Jun           |
+| v4.0    | 2023/10/24 | project finish   | Deahun, Jun   |
 
 
 ### Run
@@ -35,5 +38,5 @@ If you have any questions or feedback, please contact us at [email].
 - Team: Nebula-Nom
 - Participants: JunDeve(Jun Kim), Deahun-k(Daehun Kim)
 - School: Kyungil University
-- email: X
+- email: kimdh8315@naver.com
 
