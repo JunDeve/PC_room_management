@@ -32,10 +32,8 @@ link: https://flame-show-204.notion.site/PC-dbc334aa7b8748bcb6d71a7e6a3359e0?pvs
 
 If you have any questions or feedback, please contact us at [email].
 
-- Name: Kim Jun
+- Team: Nebula-Nom
+- Participants: JunDeve(Jun Kim), Deahun-k(Daehun Kim)
 - School: Kyungil University
-- Student number: 20191394
-- email:
-( Fast reply: qnfto02143@naver.com
-, business: lupus3608jk@gmail.com, lupus22jk@naver.com )
+- email: X
 
