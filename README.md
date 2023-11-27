@@ -38,5 +38,5 @@ If you have any questions or feedback, please contact us at [email].
 - Team: Nebula-Nom
 - Participants: JunDeve(Jun Kim), Deahun-k(Daehun Kim)
 - School: Kyungil University
-- email: kimdh8315@naver.com
+- email: lupus3608jk@gmail.com, kimdh8315@naver.com
 
